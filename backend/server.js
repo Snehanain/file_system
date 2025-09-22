@@ -138,7 +138,7 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 BalkanID File Manager server running on http://localhost:${PORT}`);
+  console.log(`🚀 FileVault server running on http://localhost:${PORT}`);
   console.log(`📁 Frontend served from: ${path.join(__dirname, '../frontend')}`);
   console.log(`💾 Files stored in memory (resets on server restart)`);
 });

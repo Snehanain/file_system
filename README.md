@@ -1,169 +1,168 @@
-# File Manager
+# FileVault
 
-A modern, full-stack file management application with duplicate detection capabilities. Built with Node.js, Express, and vanilla JavaScript.
+A modern file management system built with Node.js and vanilla JavaScript. FileVault provides an intuitive interface for uploading, organizing, and managing files with advanced search and filtering capabilities.
 
-![File Manager](https://img.shields.io/badge/File%20Manager-v1.0.0-blue)
-![Node.js](https://img.shields.io/badge/Node.js-v14+-green)
-![Express](https://img.shields.io/badge/Express-v4.18+-red)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)
+## Features
 
-## ✨ Features
+- **File Upload**: Drag and drop or click to upload files
+- **Duplicate Detection**: Prevents duplicate file uploads using content hashing
+- **Search & Filter**: Find files quickly with advanced filtering options
+- **File Management**: Download, delete, and organize your files
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Real-time Progress**: Visual feedback during file uploads
 
-- **📁 File Upload**: Drag & drop or click to upload files
-- **🔍 Duplicate Detection**: Automatically detects and prevents duplicate file uploads using SHA-256 hashing
-- **📋 File Management**: View, download, and delete uploaded files
-- **🎨 Modern UI**: Beautiful, responsive interface with real-time feedback
-- **📊 Progress Tracking**: Visual upload progress with status updates
-- **💾 Memory Storage**: Files stored in memory (resets on server restart)
-- **📱 Responsive Design**: Works perfectly on desktop, tablet, and mobile
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (version 14 or higher)
 - npm (comes with Node.js)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/file-manager.git
-   cd file-manager
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/Snehanain/file_system.git
+cd file_system
+```
 
-2. **Install dependencies**
-   ```bash
-   cd backend
-   npm install
-   ```
+2. Install dependencies:
+```bash
+cd backend
+npm install
+```
 
-3. **Start the server**
-   ```bash
-   npm start
-   ```
+3. Start the server:
+```bash
+npm start
+```
 
-4. **Open your browser**
-   Navigate to `http://localhost:3000`
+4. Open your browser and navigate to `http://localhost:3000`
 
-## 🎯 Usage
+## Usage
 
-### Upload Files
+### Uploading Files
+
+FileVault supports multiple ways to upload files:
+
 - **Drag & Drop**: Simply drag files from your computer onto the upload area
-- **Click to Browse**: Click the "Select Files" button to open the file browser
-- **Multiple Files**: You can select multiple files at once
+- **Click to Browse**: Use the "Choose Files" button to open the file browser
+- **Take Photo**: Use the "Take Photo" button for camera access (images only)
+- **Floating Button**: Click the + button in the top-right corner
 
-### Duplicate Detection
-- When you try to upload a file that already exists, the system will:
-  - Show a warning message
-  - Display information about the original file
-  - Prevent the duplicate from being uploaded
+### Managing Files
 
-### File Management
-- **View Files**: See all uploaded files with details (name, size, upload date, type)
-- **Download**: Click the download button to save files to your computer
+Once uploaded, you can:
+
+- **View Files**: See all your files in a clean card-based layout
+- **Search**: Use the search box to find files by name or type
+- **Filter**: Filter files by type, size, or upload date
+- **Download**: Click the download button to save files locally
 - **Delete**: Remove files you no longer need
-- **Refresh**: Update the file list manually
 
-## 🛠️ Technical Details
+### Search & Filter Options
 
-### Backend (Node.js + Express)
-- **Server**: Express.js web server
-- **File Upload**: Multer middleware for handling multipart/form-data
-- **Duplicate Detection**: SHA-256 hashing for file comparison
-- **Storage**: In-memory storage (resets on server restart)
-- **CORS**: Enabled for cross-origin requests
+- **File Type**: Images, Videos, Audio, Documents, Archives, Other
+- **Size Range**: Small (< 1MB), Medium (1-10MB), Large (> 10MB)
+- **Date Range**: Today, This Week, This Month, Any Time
+- **Sort Options**: Newest, Oldest, Name A-Z, Size, Type
+
+## Technical Details
+
+### Backend
+
+- **Framework**: Express.js
+- **File Handling**: Multer middleware
+- **Duplicate Detection**: SHA-256 hashing
+- **Storage**: In-memory (resets on server restart)
 - **File Size Limit**: 10MB per file
 
-### Frontend (Vanilla JavaScript)
-- **UI**: Modern, responsive design with CSS Grid and Flexbox
-- **Drag & Drop**: Native HTML5 drag and drop API
-- **AJAX**: Fetch API for server communication
-- **Notifications**: Toast notifications for user feedback
-- **Icons**: Font Awesome icons for better UX
-- **Animations**: Smooth CSS transitions and animations
+### Frontend
+
+- **Framework**: Vanilla JavaScript
+- **Styling**: Custom CSS with modern design principles
+- **Icons**: Font Awesome
+- **Fonts**: Poppins (Google Fonts)
+- **Responsive**: Mobile-first design approach
 
 ### API Endpoints
+
 - `GET /` - Serve the frontend application
-- `GET /api/files` - Get list of all uploaded files
+- `GET /api/files` - Retrieve all uploaded files
 - `POST /api/upload` - Upload a new file
 - `DELETE /api/files/:id` - Delete a file by ID
 - `GET /api/files/:id/download` - Download a file by ID
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-file-manager/
+file_system/
 ├── backend/
-│   ├── package.json          # Backend dependencies
-│   └── server.js             # Express server with API endpoints
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
 ├── frontend/
-│   ├── index.html            # Main HTML file
-│   ├── styles.css            # CSS styles
-│   └── script.js             # JavaScript functionality
-├── README.md                 # This file
-└── .gitignore               # Git ignore file
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+├── .gitignore
+└── README.md
 ```
 
-## 🎨 Design Features
-
-- **Modern Color Scheme**: Professional blue gradient background
-- **Glass Morphism**: Subtle backdrop blur effects
-- **Smooth Animations**: CSS transitions and hover effects
-- **Responsive Layout**: Mobile-first design approach
-- **Accessibility**: Proper contrast ratios and keyboard navigation
-
-## 🔧 Development
+## Development
 
 ### Running in Development Mode
+
 ```bash
 cd backend
-npm run dev  # Uses nodemon for auto-restart
+npm run dev
 ```
 
+This will start the server with nodemon for automatic restarts on file changes.
+
 ### Building for Production
+
 ```bash
 cd backend
 npm start
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
 **Port Already in Use**
+If port 3000 is already in use, you can change it by setting the PORT environment variable:
+
 ```bash
-# If port 3000 is busy, you can change it
 PORT=3001 npm start
 ```
 
 **File Upload Fails**
-- Check file size (must be under 10MB)
-- Ensure file is not corrupted
-- Check browser console for error messages
+- Ensure the file size is under 10MB
+- Check that the file is not corrupted
+- Verify the server is running properly
 
-**Duplicate Detection Not Working**
+**Duplicate Detection**
 - Duplicate detection is based on file content, not filename
 - Files with identical content will be detected as duplicates regardless of name
 
-## 📝 License
-
-MIT License - feel free to use this project for learning and development purposes.
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📞 Support
+## License
 
-If you have any questions or need help, please open an issue on GitHub.
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+If you encounter any issues or have questions, please open an issue on GitHub.
 
 ---
 
-**File Manager** - A simple yet powerful file management solution with duplicate detection.
-
-Made with ❤️ using Node.js, Express, and vanilla JavaScript.
+Built with ❤️ using Node.js, Express, and vanilla JavaScript.

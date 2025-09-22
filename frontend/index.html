@@ -3,67 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Manager</title>
+    <title>FileVault - Smart File Manager</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <h1>File Manager</h1>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-vault"></i>
+                    <span>FileVault</span>
+                </div>
             </div>
-            <p class="subtitle">Simple, fast, and secure file management</p>
-        </header>
+            
+            <div class="sidebar-menu">
+                <div class="menu-item active" data-section="upload">
+                    <i class="fas fa-upload"></i>
+                    <span>Upload Files</span>
+                </div>
+                <div class="menu-item" data-section="files">
+                    <i class="fas fa-folder-open"></i>
+                    <span>My Files</span>
+                    <span class="file-count" id="fileCount">0</span>
+                </div>
+                <div class="menu-item" data-section="search">
+                    <i class="fas fa-search"></i>
+                    <span>Search & Filter</span>
+                </div>
+            </div>
+        </nav>
 
+        <!-- Main Content Area -->
         <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1 id="pageTitle">Upload Files</h1>
+                    <p id="pageSubtitle">Drag and drop your files here to get started</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-box" id="searchBox" style="display: none;">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search files...">
+                        <button class="clear-search" id="clearSearch">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <button class="upload-fab" id="uploadFab">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </header>
+
             <!-- Upload Section -->
-            <section class="upload-section">
-                <div class="upload-area" id="uploadArea">
+            <section class="content-section" id="uploadSection">
+                <div class="upload-zone" id="uploadArea">
                     <div class="upload-content">
-                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
                         <h3>Drop files here or click to browse</h3>
-                        <p>Maximum file size: 10MB</p>
-                        <input type="file" id="fileInput" multiple accept="*/*" style="display: none;">
-                        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
-                            <i class="fas fa-plus"></i> Select Files
+                        <p>Supports all file types • Max 10MB per file</p>
+                        <div class="upload-actions">
+                            <input type="file" id="fileInput" multiple accept="*/*" style="display: none;">
+                            <button class="btn-primary" id="chooseFilesBtn">
+                                <i class="fas fa-folder-open"></i> Choose Files
+                            </button>
+                            <button class="btn-secondary" id="takePhotoBtn">
+                                <i class="fas fa-camera"></i> Take Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-container" id="progressSection" style="display: none;">
+                    <div class="progress-header">
+                        <h4>Uploading Files</h4>
+                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Preparing upload...</p>
+                </div>
+            </section>
+
+            <!-- Files Section -->
+            <section class="content-section" id="filesSection" style="display: none;">
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label>Filter by type:</label>
+                        <select id="typeFilter">
+                            <option value="">All Types</option>
+                            <option value="image">Images</option>
+                            <option value="video">Videos</option>
+                            <option value="audio">Audio</option>
+                            <option value="document">Documents</option>
+                            <option value="archive">Archives</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Sort by:</label>
+                        <select id="sortFilter">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="name">Name A-Z</option>
+                            <option value="size">Size</option>
+                            <option value="type">Type</option>
+                        </select>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn-outline" id="clearFilters">
+                            <i class="fas fa-times"></i> Clear Filters
                         </button>
                     </div>
                 </div>
-            </section>
 
-            <!-- Progress Section -->
-            <section class="progress-section" id="progressSection" style="display: none;">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <p class="progress-text" id="progressText">Uploading...</p>
-            </section>
-
-            <!-- Files List Section -->
-            <section class="files-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-folder"></i> Uploaded Files</h2>
-                    <button class="refresh-btn" onclick="loadFiles()">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
-                </div>
-                
-                <div class="files-list" id="filesList">
-                    <div class="loading" id="loadingFiles">
-                        <i class="fas fa-spinner fa-spin"></i> Loading files...
+                <!-- Files Grid -->
+                <div class="files-grid" id="filesList">
+                    <div class="loading-state" id="loadingFiles">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading your files...</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Duplicate Detection Section -->
-            <section class="duplicates-section" id="duplicatesSection" style="display: none;">
-                <div class="section-header">
-                    <h2><i class="fas fa-exclamation-triangle"></i> Duplicate Files Detected</h2>
+            <!-- Search Section -->
+            <section class="content-section" id="searchSection" style="display: none;">
+                <div class="search-interface">
+                    <div class="search-header">
+                        <h3>Search & Filter Files</h3>
+                        <p>Find exactly what you're looking for</p>
+                    </div>
+                    
+                    <div class="search-controls">
+                        <div class="search-input-group">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="mainSearchInput" placeholder="Search by filename, type, or content...">
+                            <button class="search-btn" id="mainSearchBtn">Search</button>
+                        </div>
+                        
+                        <div class="advanced-filters">
+                            <div class="filter-row">
+                                <div class="filter-item">
+                                    <label>File Type</label>
+                                    <select id="advancedTypeFilter">
+                                        <option value="">All Types</option>
+                                        <option value="image">Images</option>
+                                        <option value="video">Videos</option>
+                                        <option value="audio">Audio</option>
+                                        <option value="document">Documents</option>
+                                        <option value="archive">Archives</option>
+                                    </select>
+                                </div>
+                                <div class="filter-item">
+                                    <label>Size Range</label>
+                                    <select id="sizeFilter">
+                                        <option value="">Any Size</option>
+                                        <option value="small">Small (< 1MB)</option>
+                                        <option value="medium">Medium (1-10MB)</option>
+                                        <option value="large">Large (> 10MB)</option>
+                                    </select>
+                                </div>
+                                <div class="filter-item">
+                                    <label>Date Range</label>
+                                    <select id="dateFilter">
+                                        <option value="">Any Time</option>
+                                        <option value="today">Today</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="search-results" id="searchResults">
+                        <div class="empty-search">
+                            <i class="fas fa-search"></i>
+                            <h4>Start searching to find your files</h4>
+                            <p>Use the search box above or apply filters to narrow down your results</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="duplicate-info" id="duplicateInfo"></div>
             </section>
+
+            <!-- Duplicate Detection Modal -->
+            <div class="modal-overlay" id="duplicateModal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Duplicate File Detected</h3>
+                        <button class="modal-close" id="closeDuplicateModal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="duplicateInfo">
+                        <!-- Duplicate info will be inserted here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-outline" id="cancelDuplicate">Cancel</button>
+                        <button class="btn-primary" id="replaceDuplicate">Replace File</button>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- Toast Notifications -->
